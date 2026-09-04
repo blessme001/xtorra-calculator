@@ -1,5 +1,6 @@
 /* Solar Cartography page: directional field-guide layout with Navy authority, Solar Lime actions, and radial energy motifs. */
 /* Solar Cartography page: editorial field-guide composition with navy authority, solar-lime signals, and practical energy-routing interactions. */
+import UtilityScale from "@/pages/UtilityScale";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -116,6 +117,7 @@ function Logo({ compact = false }: { compact?: boolean }) {
 }
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<"calculator" | "utility">("calculator");
   const [activeSolution, setActiveSolution] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [marketId, setMarketId] = useState("nigeria");
@@ -582,7 +584,37 @@ export default function Home() {
         </section>
 
         <div className="relative z-10 hidden h-20 overflow-hidden bg-[#F2F6F3] lg:block" aria-hidden="true"><svg viewBox="0 0 1440 80" className="h-full w-full" fill="none" preserveAspectRatio="none"><path d="M-16 42C150 20 255 66 430 38C586 12 730 66 900 36C1080 5 1234 56 1456 21" stroke="#0F6693" strokeOpacity=".22" /><path d="M-16 48C152 29 260 71 442 44C608 19 736 71 914 43C1088 17 1248 61 1456 29" stroke="#58A90E" strokeOpacity=".56" strokeDasharray="4 10" /><circle cx="914" cy="43" r="4" fill="#58A90E" /></svg><div className="absolute left-[58%] top-1/2 -translate-y-1/2 border border-[#0F6693]/20 bg-[#F8F8F3]/90 px-3 py-2 text-[0.58rem] font-extrabold uppercase tracking-[0.15em] text-[#244F72] shadow-sm">Route transition / 04 → 05</div></div>
-        <SolarDesignCalculator onBoqEnquiry={handoffBoqToSales} />
+        {/* Tab Navigation */}
+<section className="py-12 bg-white border-t border-gray-200">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="flex gap-4 border-b border-gray-200 mb-8">
+      <button
+        onClick={() => setActiveTab("calculator")}
+        className={`px-6 py-3 font-semibold transition-colors ${
+          activeTab === "calculator"
+            ? "text-blue-600 border-b-2 border-blue-600"
+            : "text-gray-600 hover:text-gray-900"
+        }`}
+      >
+        Solar Calculator
+      </button>
+      <button
+        onClick={() => setActiveTab("utility")}
+        className={`px-6 py-3 font-semibold transition-colors ${
+          activeTab === "utility"
+            ? "text-blue-600 border-b-2 border-blue-600"
+            : "text-gray-600 hover:text-gray-900"
+        }`}
+      >
+        Utility Scale
+      </button>
+    </div>
+
+    {/* Tab Content */}
+    {activeTab === "calculator" && <SolarDesignCalculator onBoqEnquiry={handoffBoqToSales} />}
+    {activeTab === "utility" && <UtilityScale />}
+  </div>
+</section>
 
         <div className="relative z-10 hidden h-20 overflow-hidden bg-[#E7EFF1] lg:block" aria-hidden="true"><svg viewBox="0 0 1440 80" className="h-full w-full" fill="none" preserveAspectRatio="none"><path d="M-14 55C142 24 278 72 444 42C590 16 746 74 906 37C1072 1 1230 52 1454 18" stroke="#0F6693" strokeOpacity=".22" /><path d="M-14 62C154 36 288 80 458 50C608 24 756 82 922 46" stroke="#58A90E" strokeOpacity=".55" strokeDasharray="4 10" /><circle cx="922" cy="46" r="4" fill="#58A90E" /></svg><div className="absolute left-[61%] top-1/2 -translate-y-1/2 border border-[#0F6693]/20 bg-[#F8F8F3]/90 px-3 py-2 text-[0.58rem] font-extrabold uppercase tracking-[0.15em] text-[#244F72] shadow-sm">Route transition / 05 → 06</div></div>
 
